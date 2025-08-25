@@ -265,6 +265,10 @@
 
   /* Icon badge */
   .icon-badge { @apply inline-flex h-10 w-10 items-center justify-center rounded-full border bg-[color:var(--brand-50)] text-[color:var(--brand-800)]; }
+  /* Icon badge depth when inside cards */
+  [data-slot="card"] .icon-badge, .card-glass .icon-badge {
+    box-shadow: inset 0 1px 0 0 color-mix(in oklab, var(--neutral-0) 35%, transparent), inset 0 -1px 0 0 color-mix(in oklab, var(--neutral-900) 14%, transparent);
+  }
 
   /* Subtle spotlight tint on hover */
   .spotlight-hover:hover {
@@ -286,15 +290,37 @@
   .js .reveal { opacity: 0; transform: translateY(6px); transition: opacity 420ms ease, transform 420ms ease; will-change: opacity, transform; }
   .js .reveal.is-visible { opacity: 1; transform: translateY(0); }
 
+  /* Layered soft shadows for natural lift (tokens + color-mix) */
+  .shadow-layer-base {
+    box-shadow:
+      0 1px 2px color-mix(in oklab, var(--neutral-900) 8%, transparent),
+      0 2px 6px color-mix(in oklab, var(--neutral-900) 7%, transparent);
+  }
+  .shadow-layer-hover {
+    box-shadow:
+      0 1px 2px color-mix(in oklab, var(--neutral-900) 8%, transparent),
+      0 4px 10px color-mix(in oklab, var(--neutral-900) 8%, transparent),
+      0 8px 24px color-mix(in oklab, var(--neutral-900) 7%, transparent);
+  }
+
+  /* Micro-interactions with prefers-reduced-motion support */
+  .micro-interaction { transition: transform var(--transition-base) var(--easing-standard), box-shadow var(--transition-base) var(--easing-standard); transform: translateY(0) scale(1); }
+  .micro-interaction:hover { transform: translateY(-2px) scale(1.012); }
+  .micro-interaction[data-tilt="true"]:hover { transform: translateY(-2px) scale(1.012) rotate3d(0.2, -0.1, 0, 0.35deg); }
+  @media (prefers-reduced-motion: reduce) {
+    .micro-interaction { transition: none; }
+    .micro-interaction:hover, .micro-interaction[data-tilt="true"]:hover { transform: none; }
+  }
+
   /* Glassmorphism card utility */
   .card-glass { @apply relative rounded-2xl border transition-all duration-300 ease-out will-change-transform transform-gpu p-6 md:p-8; }
   /* Base glass surface: translucent with blur and soft inner shadow */
   .card-glass { background: color-mix(in oklab, var(--background) 70%, transparent); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
   .dark .card-glass { background: color-mix(in oklab, var(--background) 55%, transparent); }
 
-  /* Soft border with semi-transparent white and gradient hint to brand */
-  .card-glass { border-color: color-mix(in oklab, var(--neutral-0) 60%, transparent); }
-  .dark .card-glass { border-color: color-mix(in oklab, var(--neutral-0) 24%, transparent); }
+  /* Soft border using token */
+  .card-glass { border-color: var(--border); }
+  .dark .card-glass { border-color: var(--border); }
 
   /* Inner subtle inset shadow for depth */
   .card-glass::after {
@@ -307,15 +333,47 @@
   }
   .dark .card-glass::after { box-shadow: inset 0 1px 0 0 color-mix(in oklab, var(--neutral-0) 12%, transparent), inset 0 -1px 0 0 color-mix(in oklab, var(--neutral-900) 35%, transparent); }
 
-  /* Elevation + scale on hover */
-  .card-glass:hover { @apply -translate-y-0.5 scale-[1.02]; box-shadow: var(--shadow-md); }
+  /* Elevation + layered hover shadows (micro-interaction applied via class on components) */
+  .card-glass { box-shadow: var(--shadow-xs); }
+  .card-glass:hover { box-shadow: var(--shadow-xs), 0 4px 10px color-mix(in oklab, var(--neutral-900) 8%, transparent), 0 8px 24px color-mix(in oklab, var(--neutral-900) 7%, transparent); }
   /* Accessible focus without adding a second border: soft outer glow */
-  .card-glass:focus-visible { outline: none; @apply scale-[1.02]; box-shadow: var(--shadow-lg), var(--shadow-glow-brand); }
+  .card-glass:focus-visible { outline: none; box-shadow: var(--shadow-md), var(--shadow-glow-brand); }
 
   /* Remove previous gradient border overlay (no extra borders on hover/focus) */
   .card-glass::before { content: none; }
 
+  /* Subtle gradient overlay + ultra-subtle noise for glass depth */
+  .card-glass::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background-image:
+      linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02)),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.8'/%3E%3C/svg%3E");
+    background-size: auto, 180px 180px;
+    background-repeat: no-repeat, repeat;
+    background-blend-mode: normal, overlay;
+    pointer-events: none;
+  }
   /* Tinted variant is now inlined by Card variant="glassBrand" */
+
+  /* Featured/CTA subtle gradient animation */
+  @keyframes gentle-gradient-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  .animate-gentle-gradient { background-size: 200% 200%; animation: gentle-gradient-shift 24s ease-in-out infinite; }
+  @media (prefers-reduced-motion: reduce) { .animate-gentle-gradient { animation: none; } }
+
+  /* Squircle-like radius approximation */
+  .radius-squircle { border-radius: clamp(var(--radius-lg), 1.25rem, 1.5rem); }
+
+  /* Icon badge depth when inside cards */
+  [data-slot="card"] .icon-badge, .card-glass .icon-badge {
+    box-shadow: inset 0 1px 0 0 color-mix(in oklab, var(--neutral-0) 35%, transparent), inset 0 -1px 0 0 color-mix(in oklab, var(--neutral-900) 14%, transparent);
+  }
 
   /* Subtle spotlight hover */
   .card-glass.spotlight-hover:hover {

@@ -88,7 +88,7 @@ export default function Page() {
           {[
             { label: "Binnen 1 week online", value: "Snel live" },
             { label: "Heldere communicatie", value: "Korte lijnen" },
-            { label: "Persoonlijke aanpak", value: "Één aanspreekpunt" },
+            { label: "Persoonlijke aanpak", value: "Eén aanspreekpunt" },
           ].map((s) => (
             <div key={s.label} className="card-glass text-center">
               <p className="text-2xl font-semibold tracking-tight">{s.value}</p>

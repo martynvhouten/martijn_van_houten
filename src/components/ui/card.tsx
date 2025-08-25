@@ -13,16 +13,16 @@ type CardProps = React.ComponentProps<"div"> & {
 function Card({ className, variant = "default", clickable = false, asChild = false, ...props }: CardProps) {
   const Comp = asChild ? Slot : "div"
 
-  const base = "text-card-foreground flex flex-col gap-5 md:gap-6 rounded-2xl border p-6 md:p-8 transition-all duration-200 ease-out will-change-transform transform-gpu"
+  const base = "text-card-foreground flex flex-col gap-5 md:gap-6 radius-squircle border p-6 md:p-8 transition-all duration-200 ease-out will-change-transform transform-gpu micro-interaction shadow-layer-base"
   const variants: Record<CardVariant, string> = {
     default: "bg-slate-50/80 dark:bg-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--brand] focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-    elevated: "bg-white shadow-elev-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--brand] focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-    accent: "bg-gradient-to-br from-[color:var(--brand-50)]/70 via-white/60 to-[color:var(--brand-50)]/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--brand] focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-    glass: "card-glass", // focus handled by .card-glass
+    elevated: "bg-white shadow-layer-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--brand] focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+    accent: "bg-gradient-to-br from-[color:var(--brand-50)]/70 via-white/60 to-[color:var(--brand-50)]/70 animate-gentle-gradient focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--brand] focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+    glass: "card-glass",
     glassBrand:
       "card-glass bg-[linear-gradient(135deg,_color-mix(in_oklab,_var(--brand-50)_65%,_transparent),_color-mix(in_oklab,_#ffffff_40%,_transparent))] dark:bg-[linear-gradient(135deg,_color-mix(in_oklab,_var(--brand-400)_10%,_transparent),_color-mix(in_oklab,_#000000_30%,_transparent))]",
   }
-  const interactive = clickable ? "spotlight-hover hover:-translate-y-0.5 hover:scale-[1.01] shadow-hover-elev-sm cursor-pointer" : "cursor-default"
+  const interactive = clickable ? "spotlight-hover cursor-pointer hover:shadow-layer-hover" : "cursor-default"
 
   return (
     <Comp

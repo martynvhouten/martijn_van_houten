@@ -30,7 +30,7 @@ export default function Page() {
                 <Link href="/contact">Gratis kennismaking</Link>
               </Button>
               <Button asChild variant="outline">
-                <Link href="/portfolio" prefetch className="link-underline">Bekijk voorbeelden</Link>
+                <Link href="/portfolio" prefetch>Bekijk voorbeelden</Link>
               </Button>
             </div>
             <p className="mt-6 text-sm text-muted-foreground flex flex-wrap gap-x-4 gap-y-2">
@@ -102,7 +102,7 @@ export default function Page() {
 
       {/* CTA banner: strongest contrast */}
       <section className="container mx-auto px-4 pt-12 md:pt-16 pb-20">
-        <div className="card-glass relative overflow-hidden bg-gradient-to-br from-[color:var(--brand-700)] via-[color:var(--brand-800)] to-[color:var(--brand-900)] p-8 md:p-10 text-white text-center">
+        <div className="relative overflow-hidden rounded-2xl border bg-gradient-to-br from-[var(--brand-700)] via-[var(--brand-800)] to-[var(--brand-900)] p-8 md:p-10 text-white text-center shadow-elev-sm">
           <div className="pointer-events-none absolute inset-0 opacity-60 bg-[conic-gradient(from_220deg_at_80%_0%,_color-mix(in_oklab,_var(--neutral-0)_10%,_transparent),_transparent_30%,_color-mix(in_oklab,_var(--neutral-0)_6%,_transparent)_55%)]" aria-hidden />
           <div className="max-w-readable mx-auto">
             <h3 className="text-xl md:text-2xl font-semibold">Klaar om online te groeien?</h3>
