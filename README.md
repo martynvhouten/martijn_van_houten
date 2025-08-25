@@ -1,36 +1,22 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Martijn van Houten — Site
 
-## Getting Started
+## Onderhoud en configuratie
 
-First, run the development server:
+- Brand tokens: pas baby-blue kleuren aan in `src/app/globals.css` (`--brand-50` … `--brand-950`, `--brand`, `--brand-foreground`). Deze zijn als Tailwind tokens beschikbaar (`bg-brand`, `text-brand-700`, `border-brand-300`).
+- Typografie & leesbreedte: instellingen in `src/app/globals.css` (`--readable-width`, basis line-height). Utility: `.max-w-readable`.
+- Navigatie, header en footer: `src/app/(site)/layout.tsx`.
+- Home/Diensten/Over/Portfolio/Blog/Contact pagina’s: `src/app/(site)/*/page.tsx`.
+- Projecten-data: `src/data/projects.ts` (intro, highlights, outcomes, gallery).
+- Contact API: `src/app/api/contact/route.ts`. UI: `src/app/(site)/contact/page.tsx`.
+- Metadata & SEO: `src/app/layout.tsx` (Open Graph/Twitter), `src/app/sitemap.ts`, `src/app/robots.txt`.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Data & content
+- Projecten: beheer centraal in `src/data/projects.ts`. De portfolio index en detailpagina’s renderen hieruit.
+- Social/Contact: WhatsApp/LinkedIn links staan in `src/app/(site)/contact/page.tsx`.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Ontwikkeling
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Fonts: Plus Jakarta Sans via `next/font` (`src/app/layout.tsx`).
+- MDX: uitgeschakeld. Portfolio/blog zijn TSX.
+- Start lokaal: `npm run dev`.
+- Build: `npm run build`.
