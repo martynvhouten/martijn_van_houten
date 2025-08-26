@@ -40,8 +40,8 @@ export default function Page() {
             </p>
           </div>
           <div className="relative reveal">
-            <div className="absolute -inset-6 z-base rounded-3xl bg-gradient-to-br from-brand/20 via-transparent to-brand/20 blur-2xl" aria-hidden />
-            <Image src="/hero-mock.svg" alt="Website mockup" width={560} height={360} className="rounded-2xl border shadow-elev-sm" />
+            <div className="absolute -inset-6 z-base rounded-3xl bg-gradient-to-br from-brand/20 via-transparent to-brand/20 blur-2xl pointer-events-none" aria-hidden />
+            <img src="/hero-mock.svg" alt="Website mockup" width={560} height={360} className="relative z-overlay rounded-2xl border shadow-elev-sm" />
           </div>
         </div>
       </Hero>

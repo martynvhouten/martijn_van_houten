@@ -339,23 +339,28 @@
   /* Accessible focus without adding a second border: soft outer glow */
   .card-glass:focus-visible { outline: none; box-shadow: var(--shadow-md), var(--shadow-glow-brand); }
 
-  /* Remove previous gradient border overlay (no extra borders on hover/focus) */
-  .card-glass::before { content: none; }
-
-  /* Subtle gradient overlay + ultra-subtle noise for glass depth */
+  /* Subtle gradient overlay for glass depth (noise applied via .card-noise) */
   .card-glass::before {
     content: "";
     position: absolute;
     inset: 0;
     border-radius: inherit;
+    background-image: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+    background-repeat: no-repeat;
+    pointer-events: none;
+  }
+
+  /* Noise texture is opt-in via .card-noise on glass variants */
+  .card-glass.card-noise::before {
     background-image:
       linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02)),
       url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.8'/%3E%3C/svg%3E");
     background-size: auto, 180px 180px;
     background-repeat: no-repeat, repeat;
     background-blend-mode: normal, overlay;
-    pointer-events: none;
+    opacity: var(--card-noise-opacity, 0.012);
   }
+  .dark .card-glass.card-noise::before { opacity: 0.018; }
   /* Tinted variant is now inlined by Card variant="glassBrand" */
 
   /* Featured/CTA subtle gradient animation */

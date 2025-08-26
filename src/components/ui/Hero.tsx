@@ -31,8 +31,8 @@ export function Hero({ id, className, gradientDir = "b", overlapHeader = true, c
         className ?? ""
       }`}
     >
-      <div className="pointer-events-none absolute inset-0 opacity-[0.35] bg-[conic-gradient(from_130deg_at_10%_10%,_color-mix(in_oklab,_var(--brand-200)_60%,_transparent),_transparent_30%,_color-mix(in_oklab,_var(--brand-100)_70%,_transparent)_60%)]" aria-hidden />
-      <Container>
+      <div className="pointer-events-none absolute inset-0 opacity-[0.35] z-base bg-[conic-gradient(from_130deg_at_10%_10%,_color-mix(in_oklab,_var(--brand-200)_60%,_transparent),_transparent_30%,_color-mix(in_oklab,_var(--brand-100)_70%,_transparent)_60%)]" aria-hidden />
+      <Container className="relative z-overlay">
         {overlapHeader ? <div className="h-16" aria-hidden /> : null}
         {children}
       </Container>
